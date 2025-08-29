@@ -1,0 +1,127 @@
+swagger: '2.0'
+info:
+  title: MetaDefender Cloud Threat Intelligence Connector (v4)
+  description: >
+    Connector for querying MetaDefender Cloud Threat Intelligence v4. Supports:
+    - IP reputation lookup - File hash analysis - Domain reputation lookup - URL
+    reputation lookup
+  version: 1.0.0
+host: api.metadefender.com
+basePath: /v4
+schemes:
+  - https
+consumes: []
+produces: []
+paths:
+  /ip/{ip}:
+    get:
+      summary: Get IP reputation
+      description: Retrieves reputation information for a given IP address.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: ip
+          description: IPv4 or IPv6 address.
+          required: true
+          type: string
+          format: ipv4
+      responses:
+        '200':
+          description: IP Add reputation result
+          schema:
+            type: object
+        '400':
+          description: Invalid IP Address format
+        '404':
+          description: IP Address not found
+      security:
+        - ApiKeyAuth: []
+      operationId: ipLookup
+  /hash/{hash}:
+    get:
+      summary: Get file analysis by hash
+      description: >-
+        Retrieves Threat Intelligence analysis results for a file by hash (MD5,
+        SHA1, or SHA256).
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: hash
+          description: File hash (MD5, SHA1, or SHA256).
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Hash reputation result
+          schema:
+            type: object
+        '400':
+          description: Invalid hash format
+        '404':
+          description: Hash not found
+      security:
+        - ApiKeyAuth: []
+      operationId: hashLookup
+  /domain/{domain}:
+    get:
+      summary: Get domain reputation
+      description: Retrieves reputation information for a given domain.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: domain
+          description: Fully qualified domain name (FQDN).
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Domain reputation result
+          schema:
+            type: object
+        '400':
+          description: Invalid domain format
+        '404':
+          description: Domain not found
+      security:
+        - ApiKeyAuth: []
+      operationId: domainLookup
+  /url/{url}:
+    get:
+      summary: Get URL reputation
+      description: Retrieves reputation information for a given URL.
+      produces:
+        - application/json
+      parameters:
+        - in: path
+          name: url
+          description: >-
+            The encoded URL to check (must be URL-encoded twice as per API
+            spec).
+          required: true
+          type: string
+      responses:
+        '200':
+          description: URL reputation result
+          schema:
+            type: object
+        '400':
+          description: Invalid URL format
+        '404':
+          description: URL not found
+      security:
+        - ApiKeyAuth: []
+      operationId: urlLookup
+definitions: {}
+parameters: {}
+responses: {}
+securityDefinitions:
+  api_key:
+    type: apiKey
+    in: header
+    name: apikey
+security:
+  - api_key: []
+tags: []
