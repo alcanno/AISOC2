@@ -13,7 +13,7 @@ It helps analysts with:
 
 📊 Threat hunting with Defender for Endpoint Advanced Hunting
 
-📨 Context from Outlook and security signals
+📨 Context from OSINT, CISA and MDE signals
 
 ⚡ Fast, conversational access to security insights
 
